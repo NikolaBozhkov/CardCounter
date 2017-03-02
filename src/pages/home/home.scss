@@ -1,6 +1,10 @@
 page-home {
+    .no-scroll .scroll-content {
+        overflow: hidden;
+    }
+
     [class$="overlay"] {
-        background-color: color($colors, accent);
+        background-color: rgba(color($colors, accent), 0.8);
         padding: 20px 30px;
         display: flex;
         flex-flow: column;
@@ -9,6 +13,7 @@ page-home {
 
         color: color($colors, white);
         font-weight: bold;
+        font-size: 1.3em;
 
         position: absolute;
         left: 20%;
