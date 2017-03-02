@@ -1,0 +1,63 @@
+.card-container, .card-view {
+    height: 100%;
+}
+
+.card-view {
+    background-color: color($colors, black);
+    display: flex;
+    justify-content: space-between;
+}
+
+.icon-cards {
+    margin-top: 8px;
+    @include setIconFontSize(cards, 35px);
+}
+
+.cards-group {
+    display: flex;
+    align-items: center;
+}
+
+.red {
+    color: color($colors, red);
+}
+
+.white {
+    color: color($colors, white);
+}
+
+.number {
+    font-weight: 400;
+}
+
+.card-num-suit-segment {
+    display: inline-flex;
+    flex-flow: column;
+    align-items: center;
+    padding: 0 4%;
+    width: 25%;
+
+    & ion-icon:before {
+        font-size: inherit;
+    }
+
+    &.flipped {
+        transform: rotate(180deg);
+    }
+}
+
+.suit-big-wrapper {
+    align-self: center;
+    display: flex;
+    align-items: center;
+}
+
+.suit-big {
+    &:before {
+        font-size: inherit;
+    }
+}
+
+.hidden {
+    visibility: hidden;
+}

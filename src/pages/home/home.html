@@ -1,0 +1,22 @@
+<ion-header>
+    <ion-toolbar>
+        <ion-buttons left class="cards-group">
+            <button ion-button icon-only>
+                <ion-icon name="cards" class="icon-custom icon-cards"></ion-icon>
+            </button>
+            <ion-badge color="accent" class="header-chip">
+                {{cardsLeft}}
+            </ion-badge>
+        </ion-buttons>
+        <ion-title>Blackjack Count</ion-title>
+        <ion-buttons right>
+            <button ion-button icon-only (click)="presentSettings($event)">
+                <ion-icon name="settingsGear" class="icon-custom"></ion-icon>
+            </button>
+        </ion-buttons>
+    </ion-toolbar>
+</ion-header>
+
+<ion-content padding (click)="toggleDealing()">
+    <card #cardComponent></card>
+</ion-content>
