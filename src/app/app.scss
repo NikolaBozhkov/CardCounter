@@ -2,11 +2,11 @@
 
 @font-face {
   font-family: 'icomoon';
-  src:  url('../fonts/icomoon.eot?ovu87r');
-  src:  url('../fonts/icomoon.eot?ovu87r#iefix') format('embedded-opentype'),
-    url('../fonts/icomoon.ttf?ovu87r') format('truetype'),
-    url('../fonts/icomoon.woff?ovu87r') format('woff'),
-    url('../fonts/icomoon.svg?ovu87r#icomoon') format('svg');
+  src:  url('../fonts/icomoon.eot?e1rne5');
+  src:  url('../fonts/icomoon.eot?e1rne5#iefix') format('embedded-opentype'),
+    url('../fonts/icomoon.ttf?e1rne5') format('truetype'),
+    url('../fonts/icomoon.woff?e1rne5') format('woff'),
+    url('../fonts/icomoon.svg?e1rne5#icomoon') format('svg');
   font-weight: normal;
   font-style: normal;
 }
@@ -25,6 +25,9 @@
   -moz-osx-font-smoothing: grayscale;
 }
 
+.icon-visible:before {
+  content: "\e903";
+}
 .icon-cards:before {
   content: "\e902";
 }
@@ -74,6 +77,7 @@
     }
 }
 
+@include makeIcon(visible, '\e903')
 @include makeIcon(cards, '\e902')
 @include makeIcon(shuffleDeck, '\e900')
 @include makeIcon(settingsGear, '\e901')

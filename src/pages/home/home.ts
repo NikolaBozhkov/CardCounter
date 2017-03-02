@@ -31,6 +31,7 @@ export class HomePage implements AfterViewInit {
     isDealing: boolean;
 
     isCountVisible: boolean = false;
+    hasStarted: boolean = false;
 
     constructor(public navCtrl: NavController, public popoverCtrl: PopoverController) {
         this.numDecks = NUM_DECKS;
@@ -89,11 +90,18 @@ export class HomePage implements AfterViewInit {
         this.cardsLeft = this.availableCards.length * this.numDecks * NUM_SUITS;
         this.cardComponent.setCard(null);
         this.moveCardComponent.setCard(null);
+        this.hasStarted = false;
     }
 
     startDealing() {
         this.deal();
         this.isDealing = true;
+        this.hasStarted = true;
+
+        // Maximum to handle by animation
+        if (this.getDealIntervalTime() < 380) {
+            this.dealingSpeed = 150;
+        }
 
         this.dealInterval = setInterval(() => {
             this.deal();
@@ -115,7 +123,7 @@ export class HomePage implements AfterViewInit {
             setTimeout(() => {
                 this.moveCardComponent.state = 'in';
                 this.moveCardComponent.setCard(card);
-            }, 300);
+            }, 380);
 
             if (card.num <= COUNT_PLUS_THRSH) {
                 this.count += 1;
@@ -138,6 +146,8 @@ export class HomePage implements AfterViewInit {
     toggleCountVisible() {
         this.isCountVisible = !this.isCountVisible;
     }
+
+
 
     presentSettings(event) {
         let popover = this.popoverCtrl.create(SettingsComponent, {

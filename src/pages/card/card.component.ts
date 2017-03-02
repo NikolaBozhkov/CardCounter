@@ -13,7 +13,7 @@ import * as $ from 'jquery';
         trigger('flyOut', [
             state('in', style({transform: 'translateX(0)'})),
             state('out', style({transform: 'translateX(100%)'})),
-            transition('in => out', animate('300ms ease-in'))
+            transition('in => out', animate('380ms ease-in'))
         ])
     ]
 })
@@ -60,7 +60,7 @@ export class CardComponent implements AfterViewChecked {
         this.numberFontSize = Math.round($cardView.width() * 0.2);
 
         if (this.isMovable) {
-            $container.css('top', `-${$cardView.height()}px`);
+            $container.css('top', `-${height}px`);
         }
     }
 
@@ -71,10 +71,5 @@ export class CardComponent implements AfterViewChecked {
         } else {
             this.isHidden = true;
         }
-    }
-
-    snapToCard(cardComponent: CardComponent) {
-        let position = $(cardComponent.cardView.nativeElement).position();
-        $(this.cardView.nativeElement).css({top: position.top, left: position.left});
     }
 }

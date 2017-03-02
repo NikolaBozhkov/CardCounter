@@ -1,4 +1,9 @@
 page-home {
+    .icon-visible {
+        position: relative;
+        top: 4px;
+    }
+
     .no-scroll .scroll-content {
         overflow: hidden;
     }
@@ -17,7 +22,7 @@ page-home {
     [class$="overlay"] {
         background-color: color($colors, accent);
         padding: 25px 35px;
-        display: flex;
+        display: inline-flex;
         flex-flow: column;
         align-items: center;
         border-radius: 7px;
@@ -26,8 +31,6 @@ page-home {
         color: color($colors, white);
         font-weight: bold;
         font-size: 1.3em;
-
-        position: absolute;
 
         .overlay-header {
             margin-bottom: 5px;
