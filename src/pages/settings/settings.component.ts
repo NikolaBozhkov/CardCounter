@@ -3,7 +3,6 @@ import { Component, OnInit } from '@angular/core';
 import { NavParams } from 'ionic-angular';
 
 import { ViewController } from 'ionic-angular';
-import { SettingsService } from './settings.service';
 import { HomePage } from '../home/home';
 
 @Component({

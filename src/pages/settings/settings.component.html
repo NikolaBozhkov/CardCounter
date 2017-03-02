@@ -1,8 +1,10 @@
-<ion-list>
+<!-- <ion-list>
+    <ion-list-header>
+        DECKS
+    </ion-list-header>
     <ion-item>
-        <ion-badge color="accent" item-right>{{homePage.numDecks}}</ion-badge>
 
-        <ion-range [(ngModel)]="homePage.numDecks" min="1" max="8" step="1" snaps="true" color="accent"></ion-range>
+
     </ion-item>
 
     <ion-item>
@@ -28,4 +30,25 @@
         <ion-label>dual, step=3, snaps, </ion-label>
         <ion-range dualKnobs="true" [(ngModel)]="dualValue2" min="21" max="72" step="3" snaps="true"></ion-range>
     </ion-item>
-</ion-list>
+</ion-list> -->
+
+<div class="settings-container">
+    <div class="item-group">
+        <div class="item-title">
+            decks
+        </div>
+        <div class="item">
+            <ion-range [(ngModel)]="homePage.numDecks" min="1" max="8" step="1" snaps="true" color="accent"></ion-range>
+            <ion-badge color="accent" item-right>{{homePage.numDecks}}</ion-badge>
+        </div>
+    </div>
+    <div class="item-group">
+        <div class="item-title">
+            cards per second
+        </div>
+        <div class="item">
+            <ion-range [(ngModel)]="homePage.dealingSpeed" min="30" max="120" color="accent" disabled="{{homePage.isDealing}}"></ion-range>
+            <ion-badge color="accent" item-right>{{homePage.dealingSpeed}}</ion-badge>
+        </div>
+    </div>
+</div>

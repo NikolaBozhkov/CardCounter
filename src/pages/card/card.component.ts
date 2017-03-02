@@ -56,7 +56,6 @@ export class CardComponent implements AfterViewChecked {
             this.card = card;
             this.isHidden = false;
         } else {
-            this.card = card;
             this.isHidden = true;
         }
     }

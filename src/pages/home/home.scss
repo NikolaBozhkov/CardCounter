@@ -1,3 +1,21 @@
 page-home {
+    [class$="overlay"] {
+        background-color: color($colors, accent);
+        padding: 20px 30px;
+        display: flex;
+        flex-flow: column;
+        align-items: center;
+        border-radius: 7px;
 
+        color: color($colors, white);
+        font-weight: bold;
+
+        position: absolute;
+        left: 20%;
+        right: 20%;
+
+        .overlay-header {
+            margin-bottom: 5px;
+        }
+    }
 }

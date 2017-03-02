@@ -5,35 +5,44 @@ import { NavController, PopoverController } from 'ionic-angular';
 import { Card } from '../card/card';
 import { CardComponent } from '../card/card.component';
 import { SettingsComponent } from '../settings/settings.component';
-import { SettingsService } from '../settings/settings.service';
+
+const NUM_DECKS = 4;
+const NUM_CARDS = 52;
+const DEALING_SPEED = 60;
+const COUNT_MINUS_THRSH = 10;
+const COUNT_PLUS_THRSH = 6;
+const NUM_SUITS = 4;
 
 @Component({
     selector: 'page-home',
-    templateUrl: 'home.html',
-    providers: [SettingsService]
+    templateUrl: 'home.html'
 })
+
 export class HomePage implements AfterViewInit {
     @ViewChild('cardComponent') cardComponent: CardComponent;
 
     availableCards: Card[] = [];
     cardsLeft: number;
     count: number;
-    dealInterval: number = 0;
-    numDecks: number = 4;
-    dealIntervalSpeed: number = 60;
+    dealInterval: number;
+    numDecks: number;
+    dealingSpeed: number;
+    isDealing: boolean;
 
-    constructor(public navCtrl: NavController, public popoverCtrl: PopoverController, public settingsService: SettingsService) {
-        this.shuffleDeck();
-        this.cardsLeft = this.numDecks * 52;
+    constructor(public navCtrl: NavController, public popoverCtrl: PopoverController) {
+        this.numDecks = NUM_DECKS;
         this.count = 0;
-    }
-
-    getDealIntervalTime() {
-        return (60 / this.dealIntervalSpeed) * 1000 // ms per card
+        this.dealInterval = 0;
+        this.dealingSpeed = DEALING_SPEED;
+        this.isDealing = false;
     }
 
     ngAfterViewInit() {
-        this.nextCard();
+        this.shuffleDeck();
+    }
+
+    getDealIntervalTime() {
+        return (60 / this.dealingSpeed) * 1000 // ms per card
     }
 
     nextCard() : Card {
@@ -64,25 +73,31 @@ export class HomePage implements AfterViewInit {
     * Resets all cards and nullifies the current card
     */
     shuffleDeck() {
+        clearInterval(this.dealInterval);
+        
+        this.availableCards = [];
         for (let i = 2; i <= 14; i++) {
-            let newCard = new Card(i, this.numDecks * 4);
+            let newCard = new Card(i, this.numDecks * NUM_SUITS);
             this.availableCards.push(newCard);
         }
 
         this.count = 0;
+        this.cardsLeft = this.availableCards.length * this.numDecks * NUM_SUITS;
+        this.cardComponent.setCard(null);
     }
 
-    startCounting() {
+    startDealing() {
         this.deal();
+        this.isDealing = true;
 
         this.dealInterval = setInterval(() => {
             this.deal();
         }, this.getDealIntervalTime());
     }
 
-    stopCounting() {
+    stopDealing() {
         clearInterval(this.dealInterval);
-        this.dealInterval = 0;
+        this.isDealing = false;
     }
 
     deal() {
@@ -91,24 +106,21 @@ export class HomePage implements AfterViewInit {
         if (card) {
             this.cardComponent.setCard(card);
 
-            if (card.num <= 6) {
+            if (card.num <= COUNT_PLUS_THRSH) {
                 this.count += 1;
-            } else if (card.num >= 10) {
+            } else if (card.num >= COUNT_MINUS_THRSH) {
                 this.count -= 1;
             }
         } else {
-            this.stopCounting();
+            this.stopDealing();
         }
     }
 
     toggleDealing() {
-        console.log('stoppppp');
-        if (this.dealInterval) {
-            console.log('stop');
-            this.stopCounting();
+        if (this.isDealing) {
+            this.stopDealing();
         } else {
-            console.log('start');
-            this.startCounting();
+            this.startDealing();
         }
     }
 

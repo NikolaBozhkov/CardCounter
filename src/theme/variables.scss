@@ -21,6 +21,8 @@ $font-path: "../assets/fonts";
 // The "primary" color is the only required color in the map.
 
 $colors: (
+  bg-dark:    #2E3551,
+  bg-light:   #394263,
   primary:    #387ef5,
   secondary:  #32db64,
   danger:     #f53d3d,
@@ -32,16 +34,21 @@ $colors: (
   white:      #FCFCFC
 );
 
-$toolbar-background: #2E3551;
-$background-color: #394263;
+$toolbar-background: color($colors, bg-dark);
+$background-color: color($colors, bg-light);
 
 
 // App iOS Variables
 // --------------------------------------------------
 // iOS only Sass variables can go here
 
-
-
+$range-ios-padding-horizontal: 0;
+$range-ios-padding-vertical: 0;
+$range-md-padding-horizontal: 0;
+$range-md-padding-vertical: 0;
+$range-android-padding-horizontal: 0;
+$range-android-padding-vertical: 0;
+$range-ios-knob-width: 20px;
 
 // App Material Design Variables
 // --------------------------------------------------

@@ -1,7 +1,7 @@
 <ion-header>
     <ion-toolbar>
         <ion-buttons left class="cards-group">
-            <button ion-button icon-only>
+            <button ion-button icon-only (click)="shuffleDeck()">
                 <ion-icon name="cards" class="icon-custom icon-cards"></ion-icon>
             </button>
             <ion-badge color="accent" class="header-chip">
@@ -18,5 +18,14 @@
 </ion-header>
 
 <ion-content padding (click)="toggleDealing()">
+    <div class="start-overlay" [hidden]="!cardComponent.isHidden">
+        Tap to start
+    </div>
+    <div class="count-overlay" [hidden]="this.isDealing || cardComponent.isHidden">
+        <div class="overlay-header">
+            The count is
+        </div>
+        <span>{{count}}</span>
+    </div>
     <card #cardComponent></card>
 </ion-content>

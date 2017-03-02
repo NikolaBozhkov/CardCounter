@@ -1,0 +1,26 @@
+$padding-sides-item: 15px;
+
+.item {
+    display: flex;
+    align-items: center;
+    padding: 0 $padding-sides-item;
+
+    ion-range {
+        flex: 1;
+    }
+
+    ion-badge {
+        margin-left: 15px;
+    }
+}
+
+.item-title {
+    text-transform: uppercase;
+    color: #fff;
+    font-weight: 700;
+    padding: 10px $padding-sides-item;
+}
+
+.settings-container .item-group:not(:last-child), .item-title {
+    border-bottom: 1px solid $toolbar-background;
+}

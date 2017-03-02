@@ -30,7 +30,7 @@ export class Card {
 
     setCurrentSuit(suit: Suit) {
         this.currentSuit = Suit[suit].toLowerCase();
-        console.log(this.currentSuit);
+        
         if (suit == Suit.Spades || suit == Suit.Clubs) {
             this.currentColor = "white";
         } else {
