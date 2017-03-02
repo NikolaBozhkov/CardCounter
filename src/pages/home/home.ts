@@ -7,7 +7,6 @@ import { CardComponent } from '../card/card.component';
 import { SettingsComponent } from '../settings/settings.component';
 
 const NUM_DECKS = 4;
-const NUM_CARDS = 52;
 const DEALING_SPEED = 60;
 const COUNT_MINUS_THRSH = 10;
 const COUNT_PLUS_THRSH = 6;
@@ -20,14 +19,18 @@ const NUM_SUITS = 4;
 
 export class HomePage implements AfterViewInit {
     @ViewChild('cardComponent') cardComponent: CardComponent;
+    @ViewChild('moveCardComponent') moveCardComponent: CardComponent;
 
     availableCards: Card[] = [];
+    numDecks: number;
     cardsLeft: number;
     count: number;
+
     dealInterval: number;
-    numDecks: number;
     dealingSpeed: number;
     isDealing: boolean;
+
+    isCountVisible: boolean = false;
 
     constructor(public navCtrl: NavController, public popoverCtrl: PopoverController) {
         this.numDecks = NUM_DECKS;
@@ -39,6 +42,7 @@ export class HomePage implements AfterViewInit {
 
     ngAfterViewInit() {
         this.shuffleDeck();
+        this.moveCardComponent.isMovable = true;
     }
 
     getDealIntervalTime() {
@@ -73,8 +77,8 @@ export class HomePage implements AfterViewInit {
     * Resets all cards and nullifies the current card
     */
     shuffleDeck() {
-        clearInterval(this.dealInterval);
-        
+        this.stopDealing();
+
         this.availableCards = [];
         for (let i = 2; i <= 14; i++) {
             let newCard = new Card(i, this.numDecks * NUM_SUITS);
@@ -84,6 +88,7 @@ export class HomePage implements AfterViewInit {
         this.count = 0;
         this.cardsLeft = this.availableCards.length * this.numDecks * NUM_SUITS;
         this.cardComponent.setCard(null);
+        this.moveCardComponent.setCard(null);
     }
 
     startDealing() {
@@ -106,6 +111,12 @@ export class HomePage implements AfterViewInit {
         if (card) {
             this.cardComponent.setCard(card);
 
+            this.moveCardComponent.state = 'out';
+            setTimeout(() => {
+                this.moveCardComponent.state = 'in';
+                this.moveCardComponent.setCard(card);
+            }, 300);
+
             if (card.num <= COUNT_PLUS_THRSH) {
                 this.count += 1;
             } else if (card.num >= COUNT_MINUS_THRSH) {
@@ -122,6 +133,10 @@ export class HomePage implements AfterViewInit {
         } else {
             this.startDealing();
         }
+    }
+
+    toggleCountVisible() {
+        this.isCountVisible = !this.isCountVisible;
     }
 
     presentSettings(event) {

@@ -10,6 +10,9 @@
         </ion-buttons>
         <ion-title>Blackjack Count</ion-title>
         <ion-buttons right>
+            <button ion-button icon-only (click)="toggleCountVisible()">
+                <ion-icon name="add" class=""></ion-icon>
+            </button>
             <button ion-button icon-only (click)="presentSettings($event)">
                 <ion-icon name="settingsGear" class="icon-custom"></ion-icon>
             </button>
@@ -18,14 +21,19 @@
 </ion-header>
 
 <ion-content padding (click)="toggleDealing()" class="no-scroll">
-    <div class="start-overlay" [hidden]="!cardComponent.isHidden">
-        Tap to start
-    </div>
-    <div class="count-overlay" [hidden]="this.isDealing || cardComponent.isHidden">
-        <div class="overlay-header">
-            The count is
+    <div class="overlay-wrapper" *ngIf="cardComponent.isHidden">
+        <div class="start-overlay">
+            Tap to start
         </div>
-        <span>{{count}}</span>
+    </div>
+    <div class="overlay-wrapper" *ngIf="isCountVisible">
+        <div class="count-overlay">
+            <div class="overlay-header">
+                The count is
+            </div>
+            <span>{{count}}</span>
+        </div>
     </div>
     <card #cardComponent></card>
+    <card #moveCardComponent></card>
 </ion-content>

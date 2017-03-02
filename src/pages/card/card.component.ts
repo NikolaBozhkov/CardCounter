@@ -1,4 +1,4 @@
-import { Component, ViewChild, ElementRef, AfterViewChecked } from '@angular/core';
+import { Component, ViewChild, ElementRef, AfterViewChecked, trigger, state, style, transition, animate } from '@angular/core';
 
 import { NavController } from 'ionic-angular';
 
@@ -8,7 +8,14 @@ import * as $ from 'jquery';
 
 @Component({
     selector: 'card',
-    templateUrl: 'card.component.html'
+    templateUrl: 'card.component.html',
+    animations: [
+        trigger('flyOut', [
+            state('in', style({transform: 'translateX(0)'})),
+            state('out', style({transform: 'translateX(100%)'})),
+            transition('in => out', animate('300ms ease-in'))
+        ])
+    ]
 })
 export class CardComponent implements AfterViewChecked {
     @ViewChild('cardContainer') cardContainer: ElementRef;
@@ -19,6 +26,8 @@ export class CardComponent implements AfterViewChecked {
     suitBigFontSize: number;
     numberFontSize: number;
     isHidden: boolean = true;
+    state: string = 'in';
+    isMovable: boolean = false;
 
     constructor(public navCtrl: NavController) {
     }
@@ -49,6 +58,10 @@ export class CardComponent implements AfterViewChecked {
         this.suitBigFontSize = Math.round($cardView.width() * 0.4);
         this.suitSmallFontSize = Math.round($cardView.width() * 0.12);
         this.numberFontSize = Math.round($cardView.width() * 0.2);
+
+        if (this.isMovable) {
+            $container.css('top', `-${$cardView.height()}px`);
+        }
     }
 
     setCard(card: Card) {
@@ -58,5 +71,10 @@ export class CardComponent implements AfterViewChecked {
         } else {
             this.isHidden = true;
         }
+    }
+
+    snapToCard(cardComponent: CardComponent) {
+        let position = $(cardComponent.cardView.nativeElement).position();
+        $(this.cardView.nativeElement).css({top: position.top, left: position.left});
     }
 }

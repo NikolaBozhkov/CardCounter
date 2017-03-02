@@ -1,4 +1,4 @@
-<div #cardContainer (window:resize)="adjustCardSize($event)" class="card-container" [class.hidden]="isHidden">
+<div #cardContainer (window:resize)="adjustCardSize($event)" class="card-container" [class.hidden]="isHidden" [@flyOut]="state">
     <div #cardView class="card-view center {{card.currentColor}}">
         <div class="card-num-suit-segment">
             <div class="number" [style.font-size.px]="numberFontSize">{{card.symbol}}</div>
