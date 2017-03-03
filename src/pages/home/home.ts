@@ -14,7 +14,47 @@ const NUM_SUITS = 4;
 
 @Component({
     selector: 'page-home',
-    templateUrl: 'home.html'
+    template: `<ion-header>
+        <ion-toolbar>
+            <ion-buttons left class="cards-group">
+                <button ion-button icon-only (click)="shuffleDeck()">
+                    <ion-icon name="cards" class="icon-custom icon-cards"></ion-icon>
+                </button>
+                <ion-badge color="accent" class="header-chip">
+                    {{cardsLeft}}
+                </ion-badge>
+            </ion-buttons>
+            <ion-title>Blackjack Count</ion-title>
+            <ion-buttons right>
+                <button ion-button icon-only (click)="toggleCountVisible()" [disabled]="!hasStarted">
+                    <ion-icon name="visible" class="icon-custom icon-visible"></ion-icon>
+                </button>
+                <button ion-button icon-only (click)="presentSettings($event)">
+                    <ion-icon name="settingsGear" class="icon-custom"></ion-icon>
+                </button>
+            </ion-buttons>
+        </ion-toolbar>
+    </ion-header>
+
+    <ion-content padding (click)="toggleDealing()" class="no-scroll">
+        <card #cardComponent></card>
+        <card #moveCardComponent></card>
+        <div class="overlay-wrapper" *ngIf="cardComponent.isHidden">
+            <div class="start-overlay">
+                Tap to start
+            </div>
+        </div>
+        <div class="overlay-wrapper" *ngIf="isCountVisible">
+            <div class="count-overlay">
+                <div class="overlay-header">
+                    The count is
+                </div>
+                <span>{{count}}</span>
+            </div>
+        </div>
+    </ion-content>`
+
+    //templateUrl: 'home.html'
 })
 
 export class HomePage implements AfterViewInit {

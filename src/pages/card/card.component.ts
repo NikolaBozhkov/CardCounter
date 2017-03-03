@@ -8,7 +8,23 @@ import * as $ from 'jquery';
 
 @Component({
     selector: 'card',
-    templateUrl: 'card.component.html',
+    template: `<div #cardContainer (window:resize)="adjustCardSize($event)" class="card-container" [class.hidden]="isHidden" [@flyOut]="state">
+        <div #cardView class="card-view center {{card.currentColor}}">
+            <div class="card-num-suit-segment">
+                <div class="number" [style.font-size.px]="numberFontSize">{{card.symbol}}</div>
+                <ion-icon name="{{card.currentSuit}}" class="icon-custom" [style.font-size.px]="suitSmallFontSize"></ion-icon>
+            </div>
+            <div class="suit-big-wrapper">
+                <ion-icon name="{{card.currentSuit}}" class="icon-custom suit-big" [style.font-size.px]="suitBigFontSize"></ion-icon>
+            </div>
+            <div class="card-num-suit-segment flipped">
+                <div class="number" [style.font-size.px]="numberFontSize">{{card.symbol}}</div>
+                <ion-icon name="{{card.currentSuit}}" class="icon-custom" [style.font-size.px]="suitSmallFontSize"></ion-icon>
+            </div>
+        </div>
+    </div>`,
+
+    //templateUrl: 'card.component.html',
     animations: [
         trigger('flyOut', [
             state('in', style({transform: 'translateX(0)'})),
